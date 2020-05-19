@@ -129,4 +129,17 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHadBestStrikingRateWithMaximumSixAndFours() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByStrikingRateWithMaximumSixesAndFours();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Ishant Sharma", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

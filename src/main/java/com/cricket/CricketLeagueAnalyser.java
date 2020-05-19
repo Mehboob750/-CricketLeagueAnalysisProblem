@@ -53,6 +53,13 @@ public class CricketLeagueAnalyser {
         return getSortedIPLData(iplCSVComparatorForFours);
     }
 
+    public String getSortedByStrikingRateWithMaximumSixesAndFours() throws CricketLeagueAnalyserException {
+        Comparator<IplRunSheetDAO> iplCSVComparatorForStrikeRate =Comparator.comparing(average->average.strikeRate);
+        Comparator<IplRunSheetDAO> iplCSVComparatorForSixes =iplCSVComparatorForStrikeRate.thenComparing(average->average.sixes);
+        Comparator<IplRunSheetDAO> iplCSVComparatorForFours =iplCSVComparatorForSixes.thenComparing(average->average.fours);
+        return getSortedIPLData(iplCSVComparatorForFours);
+    }
+
     public String getSortedIPLData(Comparator<IplRunSheetDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplRunSheetMap == null || iplRunSheetMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
