@@ -42,5 +42,17 @@ public class CricketLeagueAnalyser {
         return sortedDataInJson;
     }
 
-  }
+    public String getStrikingRateWiseSorted() throws CricketLeagueAnalyserException {
+        if(iplRunSheetMap==null || iplRunSheetMap.size()==0) {
+            throw new CricketLeagueAnalyserException("Data Not Found",CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
+        }
+        Comparator<IplRunSheetDAO> iplCSVComparator =Comparator.comparing(average->average.strikeRate);
+        List sortedData=iplRunSheetMap.values()
+                .stream()
+                .sorted(iplCSVComparator)
+                .collect(Collectors.toList());
+        String sortedDataInJson=new Gson().toJson(sortedData);
+        return sortedDataInJson;
+    }
+}
 
