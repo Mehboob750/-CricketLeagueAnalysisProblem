@@ -89,5 +89,44 @@ public class CricketLeagueAnalysisTest {
             e.printStackTrace();
         }
     }
-    
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMaximumSixes() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSixesWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Andre Russell", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMaximumFours() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getFoursWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Shikhar Dhawan", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMaximumSixAndFours() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSixAndFoursWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Andre Russell", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

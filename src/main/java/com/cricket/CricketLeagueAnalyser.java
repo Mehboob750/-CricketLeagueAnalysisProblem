@@ -37,6 +37,22 @@ public class CricketLeagueAnalyser {
         return getSortedIPLData(iplCSVComparator);
     }
 
+    public String getSixesWiseSorted() throws CricketLeagueAnalyserException {
+        Comparator<IplRunSheetDAO> iplCSVComparator =Comparator.comparing(average->average.sixes);
+        return getSortedIPLData(iplCSVComparator);
+    }
+
+    public String getFoursWiseSorted() throws CricketLeagueAnalyserException {
+        Comparator<IplRunSheetDAO> iplCSVComparator =Comparator.comparing(average->average.fours);
+        return getSortedIPLData(iplCSVComparator);
+    }
+
+    public String getSixAndFoursWiseSorted() throws CricketLeagueAnalyserException {
+        Comparator<IplRunSheetDAO> iplCSVComparatorForSixes =Comparator.comparing(average->average.sixes);
+        Comparator<IplRunSheetDAO> iplCSVComparatorForFours =iplCSVComparatorForSixes.thenComparing(average->average.fours);
+        return getSortedIPLData(iplCSVComparatorForFours);
+    }
+
     public String getSortedIPLData(Comparator<IplRunSheetDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplRunSheetMap == null || iplRunSheetMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
@@ -48,5 +64,6 @@ public class CricketLeagueAnalyser {
         String sortedDataInJson = new Gson().toJson(sortedData);
         return sortedDataInJson;
     }
+
 }
 
