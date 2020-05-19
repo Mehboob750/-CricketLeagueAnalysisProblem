@@ -1,5 +1,6 @@
 package com.cricket;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -60,6 +61,19 @@ public class CricketLeagueAnalysisTest {
             cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
         } catch (CricketLeagueAnalyserException e) {
             Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM,e.type);
+        }
+    }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHasMaximumAverageBattingScore() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getBattingAverageWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("MS Dhoni", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
         }
     }
 
