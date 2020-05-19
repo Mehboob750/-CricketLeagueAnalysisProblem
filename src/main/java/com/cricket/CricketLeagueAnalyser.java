@@ -1,8 +1,6 @@
 package com.cricket;
 
-import censusanalyser.CSVBuilderException;
-import censusanalyser.CSVBuilderFactory;
-import censusanalyser.ICSVBuilder;
+import censusanalyser.*;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -30,28 +28,24 @@ public class CricketLeagueAnalyser {
     }
 
     public String getBattingAverageWiseSorted() throws CricketLeagueAnalyserException {
-        if(iplRunSheetMap==null || iplRunSheetMap.size()==0) {
-            throw new CricketLeagueAnalyserException("Data Not Found",CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
-        }
         Comparator<IplRunSheetDAO> iplCSVComparator =Comparator.comparing(average->average.average);
-        List sortedData=iplRunSheetMap.values()
-                                      .stream()
-                                      .sorted(iplCSVComparator)
-                                      .collect(Collectors.toList());
-        String sortedDataInJson=new Gson().toJson(sortedData);
-        return sortedDataInJson;
+        return getSortedIPLData(iplCSVComparator);
     }
 
     public String getStrikingRateWiseSorted() throws CricketLeagueAnalyserException {
-        if(iplRunSheetMap==null || iplRunSheetMap.size()==0) {
-            throw new CricketLeagueAnalyserException("Data Not Found",CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
-        }
         Comparator<IplRunSheetDAO> iplCSVComparator =Comparator.comparing(average->average.strikeRate);
-        List sortedData=iplRunSheetMap.values()
+        return getSortedIPLData(iplCSVComparator);
+    }
+
+    public String getSortedIPLData(Comparator<IplRunSheetDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
+        if (iplRunSheetMap == null || iplRunSheetMap.size() == 0) {
+            throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
+        }
+        List sortedData = iplRunSheetMap.values()
                 .stream()
                 .sorted(iplCSVComparator)
                 .collect(Collectors.toList());
-        String sortedDataInJson=new Gson().toJson(sortedData);
+        String sortedDataInJson = new Gson().toJson(sortedData);
         return sortedDataInJson;
     }
 }
