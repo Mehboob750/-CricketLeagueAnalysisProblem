@@ -232,4 +232,30 @@ public class CricketLeagueAnalysisTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMaximumRunsWithBestAverages() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByRunsWithAverages();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("David Warner", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMinimumRunsWithAverages() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByRunsWithAverages();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Ishant Sharma", iplRunsheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
