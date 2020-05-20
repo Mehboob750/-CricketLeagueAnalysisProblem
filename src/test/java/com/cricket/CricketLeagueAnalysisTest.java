@@ -78,6 +78,19 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHasMinimumAverageBattingScore() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getBattingAverageWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Ishant Sharma", iplRunsheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHasMaximumStrikingRate() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
@@ -85,6 +98,19 @@ public class CricketLeagueAnalysisTest {
             String sortedIPLData=cricketLeagueAnalyser.getStrikingRateWiseSorted();
             IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
             Assert.assertEquals("Ishant Sharma", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHasMinimumStrikingRate() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getStrikingRateWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Bhuvneshwar Kumar", iplRunsheetCSV[0].player);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }
@@ -104,6 +130,19 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMinimumSixes() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSixesWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Kuldeep Yadav", iplRunsheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMaximumFours() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
@@ -117,6 +156,19 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMinimumFours() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getFoursWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Tim Southee", iplRunsheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMaximumSixesAndFours() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
@@ -124,6 +176,19 @@ public class CricketLeagueAnalysisTest {
             String sortedIPLData=cricketLeagueAnalyser.getSixAndFoursWiseSorted();
             IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
             Assert.assertEquals("Andre Russell", iplRunsheetCSV[iplRunsheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019MostRunsCSVFile_ShouldReturnPlayerName_WhoHitMinimumSixesAndFours() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSixAndFoursWiseSorted();
+            IPLRunsheetCSV[] iplRunsheetCSV = new Gson().fromJson(sortedIPLData, IPLRunsheetCSV[].class);
+            Assert.assertEquals("Kuldeep Yadav", iplRunsheetCSV[0].player);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }
