@@ -415,4 +415,30 @@ public class CricketLeagueAnalysisTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnBowlerName_WhoHasBestAveragesWithStrikingRate() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByAveragesWithStrikingRate();
+            IPLWicketSheetCSV[] iplWicketSheetCSV = new Gson().fromJson(sortedIPLData, IPLWicketSheetCSV[].class);
+            Assert.assertEquals("Krishnappa Gowtham", iplWicketSheetCSV[iplWicketSheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnBowlerName_WhoHasLowAveragesWithStrikingRate() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByAveragesWithStrikingRate();
+            IPLWicketSheetCSV[] iplWicketSheetCSV = new Gson().fromJson(sortedIPLData, IPLWicketSheetCSV[].class);
+            Assert.assertEquals("Suresh Raina", iplWicketSheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }

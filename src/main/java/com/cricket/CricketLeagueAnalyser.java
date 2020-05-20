@@ -101,6 +101,12 @@ public class CricketLeagueAnalyser {
         Comparator<IplDAO> iplCSVComparatorStrikingRateWith5wAnd4w=Comparator.comparing(average->average.strikeRateWith5wAnd4w);
         return getSortedIPLData(iplCSVComparatorStrikingRateWith5wAnd4w);
     }
+
+    public String getSortedByAveragesWithStrikingRate() throws CricketLeagueAnalyserException {
+        Comparator<IplDAO> iplCSVComparatorAveragesWithStrikingRate=Comparator.comparing(average->average.bowlerAveragesWithStrikingRate);
+        return getSortedIPLData(iplCSVComparatorAveragesWithStrikingRate);
+    }
+
     public String getSortedIPLData(Comparator<IplDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
