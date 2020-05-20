@@ -6,7 +6,7 @@ public class IplDAO {
     public int innings;
     public int match;
     public int runs;
-    public double average;
+    public double battingAverage;
     public double strikeRate;
     public int fours;
     public int sixes;
@@ -15,6 +15,7 @@ public class IplDAO {
     public double averageWithStrikingRate;
     public double runsWithAverages;
 
+    public double bowlingAverage;
     public double over;
     public int wickets;
     public double bestBowlingIn;
@@ -31,7 +32,7 @@ public class IplDAO {
     public IplDAO(IPLRunSheetCSV iplRunsheetCSV) {
         this.player = iplRunsheetCSV.player;
         this.runs = iplRunsheetCSV.runs;
-        this.average=iplRunsheetCSV.average;
+        this.battingAverage=iplRunsheetCSV.average;
         this.strikeRate = iplRunsheetCSV.strikeRate;
         this.fours = iplRunsheetCSV.fours;
         this.sixes = iplRunsheetCSV.sixes;
@@ -49,7 +50,7 @@ public class IplDAO {
         this.runs = iplWicketSheetCSV.runs;
         this.wickets = iplWicketSheetCSV.wickets;
         this.bestBowlingIn = iplWicketSheetCSV.bestBowlingIn;
-        this.average = iplWicketSheetCSV.average;
+        this.bowlingAverage = iplWicketSheetCSV.average;
         this.economyRate = iplWicketSheetCSV.economyRate;
         this.strikeRate = iplWicketSheetCSV.strikeRate;
         this.fourWickets = iplWicketSheetCSV.fourWickets;

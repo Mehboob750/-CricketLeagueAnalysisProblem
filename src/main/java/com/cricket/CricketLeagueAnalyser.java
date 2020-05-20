@@ -43,7 +43,7 @@ public class CricketLeagueAnalyser {
     }
 
         public String getBattingAverageWiseSorted() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.average);
+        Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.battingAverage);
         return getSortedIPLData(iplCSVComparator);
     }
 
@@ -83,7 +83,7 @@ public class CricketLeagueAnalyser {
     }
 
     public String getSortedByBowlingAverage() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorAverage=Comparator.comparing(average->average.average);
+        Comparator<IplDAO> iplCSVComparatorAverage=Comparator.comparing(average->average.bowlingAverage);
         return getSortedIPLData(iplCSVComparatorAverage);
     }
 
@@ -110,6 +110,12 @@ public class CricketLeagueAnalyser {
     public String getSortedByWicketsWithBowlingAverage() throws CricketLeagueAnalyserException {
         Comparator<IplDAO> iplCSVComparatorWicketsWithBowlingAverage=Comparator.comparing(average->average.wicketsWithBowlerAverage);
         return getSortedIPLData(iplCSVComparatorWicketsWithBowlingAverage);
+    }
+
+    public String getSortedByBattingAndBowlingAverage() throws CricketLeagueAnalyserException {
+        Comparator<IplDAO> iplCSVComparatorBattingAverage=Comparator.comparing(average->average.battingAverage);
+        Comparator<IplDAO> iplCSVComparatorBowlingAverage=iplCSVComparatorBattingAverage.thenComparing(average->average.bowlingAverage);
+        return getSortedIPLData(iplCSVComparatorBowlingAverage);
     }
 
     public String getSortedIPLData(Comparator<IplDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
