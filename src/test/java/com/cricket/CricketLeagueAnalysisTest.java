@@ -11,7 +11,6 @@ public class CricketLeagueAnalysisTest {
     private static final String INCORRECT_FILE_TYPE_PATH ="./src/main/resources/IPL2019FactsheetMostRuns.MP4";
     private static final String IPL_2019_WICKETS_FILE_PATH="./src/test/resources/IPL2019FactsheetMostWkts.csv";
 
-
     @Test
     public void  givenIpl2019MostRunsCSVFile_ReturnsCorrectRecords() {
         try {
@@ -391,4 +390,29 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnBowlerName_WhoHasBestStrikingRateWith5wAnd4w() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByStrikingRateWith5wand4w();
+            IPLWicketSheetCSV[] iplWicketSheetCSV = new Gson().fromJson(sortedIPLData, IPLWicketSheetCSV[].class);
+            Assert.assertEquals("Mayank Markande", iplWicketSheetCSV[iplWicketSheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnBowlerName_WhoHaslowStrikingRateWith5wAnd4w() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByStrikingRateWith5wand4w();
+            IPLWicketSheetCSV[] iplWicketSheetCSV = new Gson().fromJson(sortedIPLData, IPLWicketSheetCSV[].class);
+            Assert.assertEquals("Umesh Yadav", iplWicketSheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }

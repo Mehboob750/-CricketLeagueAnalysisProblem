@@ -21,6 +21,7 @@ public class IplDAO {
     public double economyRate;
     public int fourWickets;
     public int fiveWickets;
+    public double strikeRateWith5wAnd4w;
 
     public IplDAO() {
     }
@@ -51,5 +52,7 @@ public class IplDAO {
         this.strikeRate = iplWicketSheetCSV.strikeRate;
         this.fourWickets = iplWicketSheetCSV.fourWickets;
         this.fiveWickets = iplWicketSheetCSV.fiveWickets;
+        this.strikeRateWith5wAnd4w=iplWicketSheetCSV.strikeRate*iplWicketSheetCSV.fourWickets*iplWicketSheetCSV.fiveWickets;
+
     }
 }
