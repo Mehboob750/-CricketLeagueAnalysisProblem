@@ -12,6 +12,8 @@ public class IplRunSheetDAO {
     public int halfCenturies;
     public int fours;
     public int sixes;
+    public double sixesAndFours;
+    public double strikeRateWithSixesAndFours;
 
     public IplRunSheetDAO() {
     }
@@ -28,5 +30,7 @@ public class IplRunSheetDAO {
         this.halfCenturies = iplRunsheetCSV.halfCenturies;
         this.fours = iplRunsheetCSV.fours;
         this.sixes = iplRunsheetCSV.sixes;
+        this.sixesAndFours=iplRunsheetCSV.sixes*iplRunsheetCSV.fours;
+        this.strikeRateWithSixesAndFours=iplRunsheetCSV.strikeRate*iplRunsheetCSV.sixes*iplRunsheetCSV.fours;
     }
 }
