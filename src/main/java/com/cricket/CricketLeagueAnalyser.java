@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyser {
-   public Map<String, IplRunSheetDAO> iplRunSheetMap =null;
+    Map<String, IplRunSheetDAO> iplRunSheetMap =null;
     public int loadIPLCSVFile(String csvFilePath) throws CricketLeagueAnalyserException {
         iplRunSheetMap = new HashMap<String, IplRunSheetDAO>();
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
@@ -22,6 +22,20 @@ public class CricketLeagueAnalyser {
             StreamSupport.stream(csvIterable.spliterator(), false)
                     .forEach(iplRunsheetCSV -> iplRunSheetMap.put(iplRunsheetCSV.player, new IplRunSheetDAO(iplRunsheetCSV)));
             return iplRunSheetMap.size();
+        } catch (IOException | CSVBuilderException e) {
+            throw new CricketLeagueAnalyserException(e.getMessage(),CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM);
+        }
+    }
+
+    public int loadIPLWicketsCSVFile(String csvFilePath) throws CricketLeagueAnalyserException {
+         Map<String, IplWicketSheetDAO> iplWicketSheetMap = new HashMap<String, IplWicketSheetDAO>();
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICSVBuilder icsvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<IPLWicketSheetCSV> csvIterator = icsvBuilder.getCSVFileIterator(reader, IPLWicketSheetCSV.class);
+            Iterable<IPLWicketSheetCSV> csvIterable = () -> csvIterator;
+            StreamSupport.stream(csvIterable.spliterator(), false)
+                    .forEach(iplWicketSheetCSV  -> iplWicketSheetMap.put(iplWicketSheetCSV.player, new IplWicketSheetDAO(iplWicketSheetCSV)));
+            return iplWicketSheetMap.size();
         } catch (IOException | CSVBuilderException e) {
             throw new CricketLeagueAnalyserException(e.getMessage(),CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM);
         }

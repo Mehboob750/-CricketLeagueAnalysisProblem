@@ -9,6 +9,7 @@ public class CricketLeagueAnalysisTest {
     private static final String IPL_2019_RUNS_FILE_PATH="./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IPL2019FactsheetMostRuns.csv";
     private static final String INCORRECT_FILE_TYPE_PATH ="./src/main/resources/IPL2019FactsheetMostRuns.MP4";
+    private static final String IPL_2019_WICKETS_FILE_PATH="./src/test/resources/IPL2019FactsheetMostWkts.csv";
 
 
     @Test
@@ -258,4 +259,58 @@ public class CricketLeagueAnalysisTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void  givenIpl2019MostWicketsCSVFile_ReturnsCorrectRecords() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            int numberOfRecords = cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            Assert.assertEquals(99,numberOfRecords);
+        } catch (CricketLeagueAnalyserException e) { }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_WithWrongFile_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CricketLeagueAnalyserException.class);
+            cricketLeagueAnalyser.loadIPLCSVFile(WRONG_CSV_FILE_PATH);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM,e.type);
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_WithTypeIncorrect_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CricketLeagueAnalyserException.class);
+            cricketLeagueAnalyser.loadIPLCSVFile(INCORRECT_FILE_TYPE_PATH);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM,e.type);
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_WithIncorrectDelimeter_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_WICKETS_FILE_PATH);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM,e.type);
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_WithIncorrectHeader_ShouldThrowException() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_WICKETS_FILE_PATH);
+        } catch (CricketLeagueAnalyserException e) {
+            Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM,e.type);
+        }
+    }
+
 }
