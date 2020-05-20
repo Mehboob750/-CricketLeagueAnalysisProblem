@@ -365,4 +365,30 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnBowlerName_WhoHasBestEconomyRate() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByEconomyRate();
+            IPLWicketSheetCSV[] iplWicketSheetCSV = new Gson().fromJson(sortedIPLData, IPLWicketSheetCSV[].class);
+            Assert.assertEquals("Ben Cutting", iplWicketSheetCSV[iplWicketSheetCSV.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnBowlerName_WhoHasLowEconomyRate() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLWicketsCSVFile(IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByEconomyRate();
+            IPLWicketSheetCSV[] iplWicketSheetCSV = new Gson().fromJson(sortedIPLData, IPLWicketSheetCSV[].class);
+            Assert.assertEquals("Shivam Dube", iplWicketSheetCSV[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

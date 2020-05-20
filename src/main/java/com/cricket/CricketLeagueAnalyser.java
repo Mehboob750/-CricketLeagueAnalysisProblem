@@ -92,6 +92,10 @@ public class CricketLeagueAnalyser {
         return getSortedIPLData(iplCSVComparatorStrikeRate);
     }
 
+    public String getSortedByEconomyRate() throws CricketLeagueAnalyserException {
+        Comparator<IplDAO> iplCSVComparatorEconomyRate=Comparator.comparing(average->average.economyRate);
+        return getSortedIPLData(iplCSVComparatorEconomyRate);
+    }
     public String getSortedIPLData(Comparator<IplDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
