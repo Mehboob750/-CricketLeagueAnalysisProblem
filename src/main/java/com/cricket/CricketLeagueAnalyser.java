@@ -82,6 +82,10 @@ public class CricketLeagueAnalyser {
         return getSortedIPLData(iplCSVComparatorRunsWithAverages);
     }
 
+    public String getSortedByBowlingAverage() throws CricketLeagueAnalyserException {
+        Comparator<IplDAO> iplCSVComparatorAverage=Comparator.comparing(average->average.average);
+        return getSortedIPLData(iplCSVComparatorAverage);
+    }
     public String getSortedIPLData(Comparator<IplDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
