@@ -2,7 +2,7 @@ package com.cricket;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IPLRunsheetCSV {
+public class IPLRunSheetCSV {
     @CsvBindByName(column = "PLAYER",required = true)
     public String player;
 
