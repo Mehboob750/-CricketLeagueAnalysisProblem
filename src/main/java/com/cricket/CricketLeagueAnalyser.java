@@ -57,6 +57,11 @@ public class CricketLeagueAnalyser {
         return getSortedIPLData(iplCSVComparatorStrikeRateWithSixAndFours);
     }
 
+    public String getSortedByAverageWithStrikingRate() throws CricketLeagueAnalyserException {
+        Comparator<IplRunSheetDAO> iplCSVComparatorAverageWithStrikeRate =Comparator.comparing(average->average.averageWithStrikingRate);
+        return getSortedIPLData(iplCSVComparatorAverageWithStrikeRate);
+    }
+
     public String getSortedIPLData(Comparator<IplRunSheetDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplRunSheetMap == null || iplRunSheetMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);

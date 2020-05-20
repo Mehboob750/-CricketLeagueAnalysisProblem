@@ -14,6 +14,8 @@ public class IplRunSheetDAO {
     public int sixes;
     public double sixesAndFours;
     public double strikeRateWithSixesAndFours;
+    public double averageWithStrikingRate;
+
 
     public IplRunSheetDAO() {
     }
@@ -32,5 +34,6 @@ public class IplRunSheetDAO {
         this.sixes = iplRunsheetCSV.sixes;
         this.sixesAndFours=iplRunsheetCSV.sixes*iplRunsheetCSV.fours;
         this.strikeRateWithSixesAndFours=iplRunsheetCSV.strikeRate*iplRunsheetCSV.sixes*iplRunsheetCSV.fours;
+        this.averageWithStrikingRate=iplRunsheetCSV.average*iplRunsheetCSV.strikeRate;
     }
 }
