@@ -1,48 +1,27 @@
 package com.cricket;
 
-import censusanalyser.*;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyser {
-    public Map<String, IplDAO> iplMap = new HashMap<String, IplDAO>();
-
+    Map<String, IplDAO> iplMap = new HashMap<>();
+  
     public int loadIPLCSVFile(String csvFilePath) throws CricketLeagueAnalyserException {
-        return this.loadIplData(csvFilePath,IPLRunSheetCSV.class);
+        iplMap=new IplLoader().loadIplData(csvFilePath,IPLRunSheetCSV.class);
+        return iplMap.size();
     }
 
     public int loadIPLWicketsCSVFile(String csvFilePath) throws CricketLeagueAnalyserException {
-        return this.loadIplData(csvFilePath,IPLWicketSheetCSV.class);
+        iplMap=new IplLoader().loadIplData(csvFilePath,IPLWicketSheetCSV.class);
+        return iplMap.size();
     }
 
-    private  <E> int loadIplData(String csvFilePath,Class<E> iplCsvClass) throws CricketLeagueAnalyserException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICSVBuilder icsvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<E> csvIterator = icsvBuilder.getCSVFileIterator(reader, iplCsvClass);
-            Iterable<E> csvIterable = () -> csvIterator;
-            if (iplCsvClass.getName().equals("com.cricket.IPLRunSheetCSV")) {
-                StreamSupport.stream(csvIterable.spliterator(), false)
-                        .map(IPLRunSheetCSV.class::cast)
-                        .forEach(iplRunSheetCSV -> iplMap.put(iplRunSheetCSV.player, new IplDAO(iplRunSheetCSV)));
-            } else if (iplCsvClass.getName().equals("com.cricket.IPLWicketSheetCSV")) {
-                StreamSupport.stream(csvIterable.spliterator(), false)
-                        .map(IPLWicketSheetCSV.class::cast)
-                        .forEach(iplWicketSheetCSV -> iplMap.put(iplWicketSheetCSV.player, new IplDAO(iplWicketSheetCSV)));
-            }
-            return iplMap.size();
-        } catch (IOException | CSVBuilderException e) {
-            throw new CricketLeagueAnalyserException(e.getMessage(), CricketLeagueAnalyserException.ExceptionType.CSV_FILE_PROBLEM);
-        }
-    }
-
-        public String getBattingAverageWiseSorted() throws CricketLeagueAnalyserException {
+    public String getBattingAverageWiseSorted() throws CricketLeagueAnalyserException {
         Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.battingAverage);
         return getSortedIPLData(iplCSVComparator);
     }

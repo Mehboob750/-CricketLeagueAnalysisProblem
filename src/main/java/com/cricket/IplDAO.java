@@ -1,11 +1,10 @@
 package com.cricket;
 
 public class IplDAO {
-
     public String player;
     public int innings;
     public int match;
-    public int runs;
+    public int battingRuns;
     public double battingAverage;
     public double strikeRate;
     public int fours;
@@ -31,7 +30,7 @@ public class IplDAO {
 
     public IplDAO(IPLRunSheetCSV iplRunsheetCSV) {
         this.player = iplRunsheetCSV.player;
-        this.runs = iplRunsheetCSV.runs;
+        this.battingRuns = iplRunsheetCSV.runs;
         this.battingAverage=iplRunsheetCSV.average;
         this.strikeRate = iplRunsheetCSV.strikeRate;
         this.fours = iplRunsheetCSV.fours;
@@ -47,7 +46,6 @@ public class IplDAO {
         this.match = iplWicketSheetCSV.match;
         this.innings=iplWicketSheetCSV.innings;
         this.over = iplWicketSheetCSV.over;
-        this.runs = iplWicketSheetCSV.runs;
         this.wickets = iplWicketSheetCSV.wickets;
         this.bestBowlingIn = iplWicketSheetCSV.bestBowlingIn;
         this.bowlingAverage = iplWicketSheetCSV.average;
