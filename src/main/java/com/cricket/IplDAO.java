@@ -22,7 +22,6 @@ public class IplDAO {
     public int fourWickets;
     public int fiveWickets;
     public double strikeRateWith5wAnd4w;
-    public double bowlerAveragesWithStrikingRate;
     public double wicketsWithBowlerAverage;
 
     public IplDAO() {
@@ -54,7 +53,6 @@ public class IplDAO {
         this.fourWickets = iplWicketSheetCSV.fourWickets;
         this.fiveWickets = iplWicketSheetCSV.fiveWickets;
         this.strikeRateWith5wAnd4w=iplWicketSheetCSV.strikeRate*iplWicketSheetCSV.fourWickets*iplWicketSheetCSV.fiveWickets;
-        this.bowlerAveragesWithStrikingRate=iplWicketSheetCSV.strikeRate*iplWicketSheetCSV.average;
         this.wicketsWithBowlerAverage=iplWicketSheetCSV.wickets*iplWicketSheetCSV.average;
     }
 }

@@ -10,14 +10,9 @@ import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
     Map<String, IplDAO> iplMap = new HashMap<>();
-  
-    public int loadIPLCSVFile(String csvFilePath) throws CricketLeagueAnalyserException {
-        iplMap=new IplLoader().loadIplData(csvFilePath,IPLRunSheetCSV.class);
-        return iplMap.size();
-    }
 
-    public int loadIPLWicketsCSVFile(String csvFilePath) throws CricketLeagueAnalyserException {
-        iplMap=new IplLoader().loadIplData(csvFilePath,IPLWicketSheetCSV.class);
+    public int loadIPLCSVFile(String... csvFilePath) throws CricketLeagueAnalyserException {
+        iplMap=new IplLoader().loadIplData(IPLRunSheetCSV.class,csvFilePath);
         return iplMap.size();
     }
 
@@ -82,13 +77,15 @@ public class CricketLeagueAnalyser {
     }
 
     public String getSortedByAveragesWithStrikingRate() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorAveragesWithStrikingRate=Comparator.comparing(average->average.bowlerAveragesWithStrikingRate);
-        return getSortedIPLData(iplCSVComparatorAveragesWithStrikingRate);
+        Comparator<IplDAO>iplCSVComparatorAverage=Comparator.comparing(average->average.bowlingAverage);
+        Comparator<IplDAO>iplCSVComparatorStrikeRate=iplCSVComparatorAverage.thenComparing(average->average.strikeRate);
+        return getSortedIPLData(iplCSVComparatorStrikeRate);
     }
 
     public String getSortedByWicketsWithBowlingAverage() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorWicketsWithBowlingAverage=Comparator.comparing(average->average.wicketsWithBowlerAverage);
-        return getSortedIPLData(iplCSVComparatorWicketsWithBowlingAverage);
+        Comparator<IplDAO>iplCSVComparatorWickets=Comparator.comparing(average->average.wickets);
+        Comparator<IplDAO>iplCSVComparatorAverage=iplCSVComparatorWickets.thenComparing(average->average.bowlingAverage);
+        return getSortedIPLData(iplCSVComparatorAverage);
     }
 
     public String getSortedByBattingAndBowlingAverage() throws CricketLeagueAnalyserException {

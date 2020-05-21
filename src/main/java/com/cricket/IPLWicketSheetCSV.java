@@ -24,7 +24,7 @@ public class IPLWicketSheetCSV {
     @CsvBindByName(column = "BBI")
     public double bestBowlingIn;
 
-    @CsvBindByName(column = "Avg")
+    @CsvBindByName(column = "Avg",required = true)
     public double average;
 
     @CsvBindByName(column = "Econ")
