@@ -38,7 +38,7 @@ public class IplLoader {
         }
     }
 
-    public int loadIPLWicketsCSVFile(Map<String, IplDAO> iplMap, String... csvFilePath) throws CricketLeagueAnalyserException {
+    public int loadIPLWicketsCSVFile(Map<String, IplDAO> iplMap, String csvFilePath) throws CricketLeagueAnalyserException {
         this.iplMap =this.loadIplData(IPLWicketSheetCSV.class,csvFilePath);
         return this.iplMap.size();
     }

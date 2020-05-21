@@ -94,6 +94,12 @@ public class CricketLeagueAnalyser {
         return getSortedIPLData(iplCSVComparatorBowlingAverage);
     }
 
+    public String getSortedByRunsAndWickets() throws CricketLeagueAnalyserException {
+        Comparator<IplDAO> iplCSVComparatorRuns=Comparator.comparing(average->average.battingRuns);
+        Comparator<IplDAO> iplCSVComparatorWicets=iplCSVComparatorRuns.thenComparing(average->average.wickets);
+        return getSortedIPLData(iplCSVComparatorWicets);
+    }
+
     public String getSortedIPLData(Comparator<IplDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);

@@ -494,4 +494,29 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnPlayer_WhoIsBestAllRounder() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH,IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByRunsAndWickets();
+            IplDAO[] iplDAO = new Gson().fromJson(sortedIPLData, IplDAO[].class);
+            Assert.assertEquals("David Warner", iplDAO[iplDAO.length-1].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIpl2019MostWicketsCSVFile_ShouldReturnPlayer_WhoIsWorstAllRounder() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCSVFile(IPL_2019_RUNS_FILE_PATH,IPL_2019_WICKETS_FILE_PATH);
+            String sortedIPLData=cricketLeagueAnalyser.getSortedByRunsAndWickets();
+            IplDAO[] iplDAO = new Gson().fromJson(sortedIPLData, IplDAO[].class);
+            Assert.assertEquals("Suresh Raina", iplDAO[0].player);
+        } catch (CricketLeagueAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
