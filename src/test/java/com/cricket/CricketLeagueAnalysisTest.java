@@ -467,7 +467,7 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
-    public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoHadBestBattingAndBowlingAverage() {
+    public void givenIPLMostRunsCSVFileAndIplMostWicketsCSVFile_shouldReturnPlayer_whoHadBestBattingAndBowlingAverage() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
             cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
@@ -480,7 +480,7 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
-    public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoHadLowBattingAndBowlingAverage() {
+    public void givenIPLMostRunsCSVFileAndIplMostWicketsCSVFile_shouldReturnPlayer_whoHadLowBattingAndBowlingAverage() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
             cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
@@ -493,7 +493,7 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
-    public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoIsBestAllRounder() {
+    public void givenIPLMostRunsCSVFileAndIplMostWicketsCSVFile_shouldReturnPlayer_whoIsBestAllRounder() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
             cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
@@ -506,7 +506,7 @@ public class CricketLeagueAnalysisTest {
     }
 
     @Test
-    public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoIsWorstAllRounder() {
+    public void givenIPLMostRunsCSVFileAndIplMostWicketsCSVFile_shouldReturnPlayer_whoIsWorstAllRounder() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
             cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
