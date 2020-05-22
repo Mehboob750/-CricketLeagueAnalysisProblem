@@ -470,7 +470,7 @@ public class CricketLeagueAnalysisTest {
     public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoHadBestBattingAndBowlingAverage() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
-            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Bowling,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
+            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
             String sortedIPLData=cricketLeagueAnalyser.getSortedByBattingAndBowlingAverage();
             IplDAO[] iplDAO = new Gson().fromJson(sortedIPLData, IplDAO[].class);
             Assert.assertEquals("MS Dhoni", iplDAO[iplDAO.length-1].player);
@@ -483,7 +483,7 @@ public class CricketLeagueAnalysisTest {
     public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoHadLowBattingAndBowlingAverage() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
-            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Bowling,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
+            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
             String sortedIPLData=cricketLeagueAnalyser.getSortedByBattingAndBowlingAverage();
             IplDAO[] iplDAO = new Gson().fromJson(sortedIPLData, IplDAO[].class);
             Assert.assertEquals("Ishant Sharma", iplDAO[0].player);
@@ -496,10 +496,10 @@ public class CricketLeagueAnalysisTest {
     public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoIsBestAllRounder() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
-            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Bowling,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
+            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
             String sortedIPLData=cricketLeagueAnalyser.getSortedByRunsAndWickets();
             IplDAO[] iplDAO = new Gson().fromJson(sortedIPLData, IplDAO[].class);
-            Assert.assertEquals("Shreyas Iyer", iplDAO[iplDAO.length-1].player);
+            Assert.assertEquals("David Warner", iplDAO[iplDAO.length-1].player);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }
@@ -509,10 +509,10 @@ public class CricketLeagueAnalysisTest {
     public void givenIplMostWicketsCSVFile_shouldReturnPlayer_whoIsWorstAllRounder() {
         try {
             CricketLeagueAnalyser cricketLeagueAnalyser=new CricketLeagueAnalyser();
-            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Bowling,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
+            cricketLeagueAnalyser.loadIPLCSVFile(CricketLeagueAnalyser.Cricket.Batting,IPL_RUNS_FILE_PATH, IPL_WICKETS_FILE_PATH);
             String sortedIPLData=cricketLeagueAnalyser.getSortedByRunsAndWickets();
             IplDAO[] iplDAO = new Gson().fromJson(sortedIPLData, IplDAO[].class);
-            Assert.assertEquals("Marcus Stoinis", iplDAO[0].player);
+            Assert.assertEquals("Tim Southee", iplDAO[0].player);
         } catch (CricketLeagueAnalyserException e) {
             e.printStackTrace();
         }

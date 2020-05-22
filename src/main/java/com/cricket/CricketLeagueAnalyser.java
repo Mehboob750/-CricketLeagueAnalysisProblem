@@ -17,7 +17,7 @@ public class CricketLeagueAnalyser {
 
     public enum Cricket{Batting,Bowling};
 
-    public int loadIPLCSVFile(Cricket cricket,String... csvFilePath) throws CricketLeagueAnalyserException {
+    public int loadIPLCSVFile(Cricket cricket, String... csvFilePath) throws CricketLeagueAnalyserException {
         iplMap=new IplAdapterFactory().loadIplData(cricket,csvFilePath);
         return iplMap.size();
     }
