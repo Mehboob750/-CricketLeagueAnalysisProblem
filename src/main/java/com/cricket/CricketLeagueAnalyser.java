@@ -9,10 +9,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
-    Map<String, IplDAO> iplMap = new HashMap<>();
+    Map<String, IplDAO> iplMap =null;
 
-    public int loadIPLCSVFile(String... csvFilePath) throws CricketLeagueAnalyserException {
-        iplMap=new IplLoader().loadIplData(IPLRunSheetCSV.class,csvFilePath);
+    public CricketLeagueAnalyser() {
+        this.iplMap = new HashMap<String, IplDAO>();
+    }
+
+    public enum Cricket{Batting,Bowling};
+
+    public int loadIPLCSVFile(Cricket cricket,String... csvFilePath) throws CricketLeagueAnalyserException {
+        iplMap=new IplAdapterFactory().loadIplData(cricket,csvFilePath);
         return iplMap.size();
     }
 
