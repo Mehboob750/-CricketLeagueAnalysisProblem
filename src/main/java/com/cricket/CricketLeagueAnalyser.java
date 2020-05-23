@@ -2,17 +2,37 @@ package com.cricket;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
     Map<String, IplDAO> iplMap =null;
-
+    Map<Enum.Fields,Comparator<IplDAO>> sortingMap=null;
     public CricketLeagueAnalyser() {
         this.iplMap = new HashMap<String, IplDAO>();
+        this.sortingMap=new HashMap<>();
+        this.sortingMap.put(Enum.Fields.BATTING_AVERAGE,Comparator.comparing(average->average.battingAverage));
+        this.sortingMap.put(Enum.Fields.STRIKE_RATE,Comparator.comparing(average->average.strikeRate));
+        this.sortingMap.put(Enum.Fields.SIXES,Comparator.comparing(average->average.sixes));
+        this.sortingMap.put(Enum.Fields.FOURS,Comparator.comparing(average->average.fours));
+        this.sortingMap.put(Enum.Fields.SIXES_AND_FOURS,Comparator.comparing(average->average.sixesAndFours));
+        this.sortingMap.put(Enum.Fields.STRIKERATE_WITH_SIXES_AND_FOURS,Comparator.comparing(average->average.strikeRateWithSixesAndFours));
+        this.sortingMap.put(Enum.Fields.AVERAGE_WITH_STRIKERATE,Comparator.comparing(average->average.averageWithStrikingRate));
+        this.sortingMap.put(Enum.Fields.RUNS_WITH_AVERAGE,Comparator.comparing(average->average.runsWithAverages));
+        this.sortingMap.put(Enum.Fields.BOWLING_AVERAGE,Comparator.comparing(average->average.bowlingAverage));
+        this.sortingMap.put(Enum.Fields.BOWLING_STRIKERATE,Comparator.comparing(average->average.bowlingStrikeRate));
+        this.sortingMap.put(Enum.Fields.BOWLING_AVERAGE_WITH_STRIKERATE,Comparator.comparing(average->average.bowlingAverageWithStrikeRate));
+        this.sortingMap.put(Enum.Fields.ECONOMY_RATE,Comparator.comparing(average->average.economyRate));
+        this.sortingMap.put(Enum.Fields.STRIKERATE_WITH_SIXES_AND_FOURS,Comparator.comparing(average->average.strikeRateWith5wAnd4w));
+        Comparator<IplDAO>comparatorComparatorWickets=Comparator.comparing(average->average.wickets);
+        this.sortingMap.put(Enum.Fields.AVERAGE_WITH_WICKETS,comparatorComparatorWickets.thenComparing(average->average.bowlingAverage));
+        Comparator<IplDAO>comparatorBattingAverage=Comparator.comparing(average->average.battingAverage);
+        this.sortingMap.put(Enum.Fields.BOWLING_AVERAGE_AND_BATTING_AVERAGE,comparatorBattingAverage.thenComparing(average->average.bowlingAverage));
+        Comparator<IplDAO>comparatorBattingRuns=Comparator.comparing(average->average.battingRuns);
+        this.sortingMap.put(Enum.Fields.BATTING_RUNS_AND_WICKETS,comparatorBattingRuns.thenComparing(average->average.wickets));
     }
 
     public enum Cricket{Batting,Bowling};
@@ -22,98 +42,14 @@ public class CricketLeagueAnalyser {
         return iplMap.size();
     }
 
-    public String getBattingAverageWiseSorted() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.battingAverage);
-        return getSortedIPLData(iplCSVComparator);
-    }
-
-    public String getStrikingRateWiseSorted() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.strikeRate);
-        return getSortedIPLData(iplCSVComparator);
-    }
-
-    public String getSixesWiseSorted() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.sixes);
-        return getSortedIPLData(iplCSVComparator);
-    }
-
-    public String getFoursWiseSorted() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparator =Comparator.comparing(average->average.fours);
-        return getSortedIPLData(iplCSVComparator);
-    }
-
-    public String getSixAndFoursWiseSorted() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorForSixesAndFours =Comparator.comparing(average->average.sixesAndFours);
-        return getSortedIPLData(iplCSVComparatorForSixesAndFours);
-    }
-
-    public String getSortedByStrikingRateWithMaximumSixesAndFours() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorStrikeRateWithSixAndFours =Comparator.comparing(average->average.strikeRateWithSixesAndFours);
-        return getSortedIPLData(iplCSVComparatorStrikeRateWithSixAndFours);
-    }
-
-    public String getSortedByAverageWithStrikingRate() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorAverageWithStrikeRate =Comparator.comparing(average->average.averageWithStrikingRate);
-        return getSortedIPLData(iplCSVComparatorAverageWithStrikeRate);
-    }
-
-    public String getSortedByRunsWithAverages() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorRunsWithAverages=Comparator.comparing(average->average.runsWithAverages);
-        return getSortedIPLData(iplCSVComparatorRunsWithAverages);
-    }
-
-    public String getSortedByBowlingAverage() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorAverage=Comparator.comparing(average->average.bowlingAverage);
-        return getSortedIPLData(iplCSVComparatorAverage);
-    }
-
-    public String getSortedByBowlingStrikeRate() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorStrikeRate=Comparator.comparing(average->average.strikeRate);
-        return getSortedIPLData(iplCSVComparatorStrikeRate);
-    }
-
-    public String getSortedByEconomyRate() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorEconomyRate=Comparator.comparing(average->average.economyRate);
-        return getSortedIPLData(iplCSVComparatorEconomyRate);
-    }
-
-    public String getSortedByStrikingRateWith5wand4w() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorStrikingRateWith5wAnd4w=Comparator.comparing(average->average.strikeRateWith5wAnd4w);
-        return getSortedIPLData(iplCSVComparatorStrikingRateWith5wAnd4w);
-    }
-
-    public String getSortedByAveragesWithStrikingRate() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO>iplCSVComparatorAverage=Comparator.comparing(average->average.bowlingAverage);
-        Comparator<IplDAO>iplCSVComparatorStrikeRate=iplCSVComparatorAverage.thenComparing(average->average.strikeRate);
-        return getSortedIPLData(iplCSVComparatorStrikeRate);
-    }
-
-    public String getSortedByWicketsWithBowlingAverage() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO>iplCSVComparatorWickets=Comparator.comparing(average->average.wickets);
-        Comparator<IplDAO>iplCSVComparatorAverage=iplCSVComparatorWickets.thenComparing(average->average.bowlingAverage);
-        return getSortedIPLData(iplCSVComparatorAverage);
-    }
-
-    public String getSortedByBattingAndBowlingAverage() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorBattingAverage=Comparator.comparing(average->average.battingAverage);
-        Comparator<IplDAO> iplCSVComparatorBowlingAverage=iplCSVComparatorBattingAverage.thenComparing(average->average.bowlingAverage);
-        return getSortedIPLData(iplCSVComparatorBowlingAverage);
-    }
-
-    public String getSortedByRunsAndWickets() throws CricketLeagueAnalyserException {
-        Comparator<IplDAO> iplCSVComparatorRuns=Comparator.comparing(average->average.battingRuns);
-        Comparator<IplDAO> iplCSVComparatorWicets=iplCSVComparatorRuns.thenComparing(average->average.wickets);
-        return getSortedIPLData(iplCSVComparatorWicets);
-    }
-
-    public String getSortedIPLData(Comparator<IplDAO> iplCSVComparator) throws CricketLeagueAnalyserException {
+    public String getSortedIPLData(Enum.Fields field) throws CricketLeagueAnalyserException {
         if (iplMap == null || iplMap.size() == 0) {
             throw new CricketLeagueAnalyserException("Data Not Found", CricketLeagueAnalyserException.ExceptionType.DATA_NOT_FOUND);
         }
-            List sortedData = iplMap.values()
+            ArrayList sortedData = iplMap.values()
                     .stream()
-                    .sorted(iplCSVComparator)
-                    .collect(Collectors.toList());
+                    .sorted(sortingMap.get(field))
+                    .collect(Collectors.toCollection(ArrayList::new));
             String sortedDataInJson = new Gson().toJson(sortedData);
             return sortedDataInJson;
     }
